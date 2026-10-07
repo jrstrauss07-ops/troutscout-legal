@@ -395,6 +395,57 @@
       .instagram-links a:hover {
         text-decoration: underline;
       }
+      /* Larger app previews and download buttons */
+      .hero-inner {
+        grid-template-columns: 1fr 1.1fr;
+        gap: 40px;
+      }
+      .hero-image {
+        max-width: 550px;
+      }
+      .feature {
+        gap: 55px;
+      }
+      .feature-art img {
+        width: min(100%, 520px);
+      }
+      .download-button {
+        border: 0;
+        font-family: inherit;
+        cursor: pointer;
+        line-height: 1.4;
+      }
+      .download-button:disabled {
+        cursor: default;
+      }
+      .download-button:disabled:hover {
+        transform: none;
+      }
+      @media (max-width: 800px) {
+        .hero-inner {
+          grid-template-columns: 1fr;
+        }
+        .hero-image {
+          width: min(100%, 430px);
+        }
+        .feature {
+          gap: 24px;
+        }
+        .feature-art img {
+          width: 100%;
+          max-width: 430px;
+        }
+        .nav {
+          flex-wrap: wrap;
+        }
+        nav {
+          flex-wrap: wrap;
+        }
+        nav .download-button {
+          padding: 10px 14px;
+          font-size: 13px;
+        }
+      }
     </style>
   </head>
   <body>
@@ -417,6 +468,9 @@
           <a class="contact" href="mailto:support@troutscout.app">
             Contact
           </a>
+          <button class="button download-button" type="button" disabled title="App Store link will be added here">
+              Download on the App Store
+            </button>
         </nav>
       </div>
     </header>
@@ -436,9 +490,9 @@
             Discover trout waters, track stockings, check conditions, and connect with local anglers. Bring your next trip into focus with TroutScout.
           </p>
           <div class="actions">
-            <a class="button" href="#all-features">
-              Explore the app
-            </a>
+            <button class="button download-button" type="button" disabled title="App Store link will be added here">
+              Download on the App Store
+            </button>
             <a class="secondary" href="#feature-3">
               Meet Scout Scanner
             </a>
@@ -618,9 +672,9 @@
         <p>
           Explore the features, find your next trout water, and make a plan for your next day outside.
         </p>
-        <a class="button" href="#feature-3">
-          Explore Scout Scanner
-        </a>
+        <button class="button download-button" type="button" disabled title="App Store link will be added here">
+              Download on the App Store
+            </button>
       </section>
     </main>
     <!-- Footer and legal links -->
@@ -650,5 +704,20 @@
         </a>
       </div>
     </footer>
+    <script>
+      // Paste the official TroutScout App Store listing URL between the quotes.
+      // This connects all three download buttons at once.
+      const APP_STORE_URL = "";
+
+      if (APP_STORE_URL) {
+        document.querySelectorAll(".download-button").forEach((button) => {
+          button.disabled = false;
+          button.title = "Download TroutScout on the App Store";
+          button.addEventListener("click", () => {
+            window.location.assign(APP_STORE_URL);
+          });
+        });
+      }
+    </script>
   </body>
 </html>
