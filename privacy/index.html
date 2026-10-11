@@ -4,15 +4,29 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>TroutScout Privacy Policy</title>
+<!-- DRAFT, revised 2026-10-11 after the privacy fixes (commits a497cc2,
+     42aaf99, 6a5d5d2, f8ce132, b15b3c2, 43ad26a, 29e5951, c4e3239, 7e2fc2d).
+     Not published. Every factual claim carries an "Evidence:" comment.
+     Remaining markers: [OPERATOR NAME: confirm], [ATTORNEY: confirm],
+     and a few [OWNER: confirm] items. Retention facts confirmed by the
+     owner 2026-10-11: Supabase Pro backups 7 days (storage not included),
+     Render Pro request logs 14 days, Sentry Developer 30 days with IP
+     storage off, photo metadata removal verified on device, U.S.-only. -->
 <style>
   body { font-family: -apple-system, system-ui, Segoe UI, Roboto, sans-serif; max-width: 720px; margin: 0 auto; padding: 24px 20px 64px; line-height: 1.6; color: #1a1a1a; }
   h1 { font-size: 1.8rem; margin-bottom: 4px; }
   h2 { font-size: 1.2rem; margin-top: 2rem; }
+  h3 { font-size: 1.05rem; margin-top: 1.4rem; }
   .meta { color: #666; font-size: 0.95rem; }
+  .summary { background: #f3f6f9; border-radius: 10px; padding: 12px 16px; }
+  table { border-collapse: collapse; width: 100%; font-size: 0.95rem; }
+  th, td { text-align: left; vertical-align: top; padding: 6px 8px; border-bottom: 1px solid #ddd; }
   a { color: #0b5cad; }
   @media (prefers-color-scheme: dark) {
     body { background: #121212; color: #eaeaea; }
     .meta { color: #aaa; }
+    .summary { background: #1e2329; }
+    th, td { border-bottom-color: #333; }
     a { color: #6db3ff; }
   }
 </style>
@@ -20,42 +34,199 @@
 <body>
 
 <h1>TroutScout Privacy Policy</h1>
-<p class="meta">Last updated: October 2, 2026</p>
+<p class="meta">Effective date: [OWNER: confirm date of publication] &middot; Previous version: October 2, 2026</p>
 
-<p>TroutScout is a fishing app that shows trout water information, stocking data, weather-based fishing scores, and a community feed. This page explains what information the app collects, how it is used, and the choices you have. Questions? Email <a href="mailto:support@troutscout.app">support@troutscout.app</a>.</p>
-
-<h2>Information we collect</h2>
+<div class="summary">
+<p><strong>The short version</strong></p>
 <ul>
-  <li><strong>Account information:</strong> your email address and sign-in method (email and password, Sign in with Apple, or Google). If you use Apple's Hide My Email, we only receive the private relay address Apple provides. We may store a display name.</li>
-  <li><strong>Location:</strong> if you allow it, your device location is used to show nearby waters, stocking, and conditions.</li>
-  <li><strong>Content you create:</strong> posts, comments, and chat messages you send in the app, and streams you save.</li>
-  <li><strong>Subscription status:</strong> whether you have an active Premium subscription. Payments are handled by Apple. We do not receive or store your payment card details.</li>
+  <li>We collect what the app needs to work: your account email, what you choose to post or save, and your location only when you allow it.</li>
+  <!-- Evidence: user tables listed in AUDIT_REPORT.md A2; all have row-level security on and no policies, so only the TroutScout server reads them. -->
+  <li>Your catch log is private. Posts, comments, chat messages and angler reports are visible to other signed-in users.</li>
+  <!-- Evidence: backend/app/routers/catches.py docstring; catch-photos bucket public=false. -->
+  <li>When you delete something you posted, we erase it. When you delete your account, we delete your data, as described below.</li>
+  <!-- Evidence: services/content_erasure.py; routers/users.py delete_my_account; scripts/test_account_deletion.py (0 rows reference a deleted user in all 43 user-linked columns). -->
+  <li>We don't sell your personal information, show ads, or track you across other companies' apps and sites. Our only analytics-type data collection is our crash reporting and the map provider's telemetry described below. [ATTORNEY: confirm "sell"/"share" wording under state laws]</li>
+  <!-- Evidence: owner wording 2026-10-11. mobile/package.json - no ad/analytics/attribution SDK; Sentry sessions off (src/sentry.ts enableAutoSessionTracking false); Mapbox telemetry - see the Maps paragraph. -->
+  <li>Every notification is opt-in.</li>
+  <!-- Evidence: push only from backend/scripts/send_stocking_alerts.py for streams/areas/states the user turned on. -->
+</ul>
+</div>
+
+<p>TroutScout is a fishing app with trout water maps, stocking data, weather-based Fish Scores and a community for anglers in the United States. It is operated by [OPERATOR NAME: confirm] ("we", "us"). Questions: <a href="mailto:support@troutscout.app">support@troutscout.app</a>.</p>
+
+<h2>1. What we collect and why</h2>
+
+<h3>Your account</h3>
+<ul>
+  <li><strong>Email address and sign-in method</strong> (email and password, Sign in with Apple, or Google), to create and secure your account and send account emails. With Apple's Hide My Email we only get Apple's relay address. Your email is never shown to other users or used as your username.
+  <!-- Evidence: auth.users.email, auth.identities.provider; services/moderation.py handle_sql falls back to "angler" + digits, never the email (commit 29e5951; scripts/test_handle_fallback.py). --></li>
+  <li><strong>Your name from Google or Apple</strong>: if you sign in with Google, Google shares your name and profile picture with our sign-in provider; if you sign in with Apple and choose to share your name, Apple shares it. If you haven't set a display name, we use that name as your display name, which other users can see; you can change or clear it in Edit Profile. We don't use the Google profile picture.
+  <!-- Evidence: mobile/src/auth/oauth.ts saveDisplayNameIfUnset(meta.full_name ?? meta.name) for Google and Apple credential.fullName; auth.identities identity_data keys for google include full_name, name, avatar_url, picture (keys only, 2026-10-11); avatar never read by app code. --></li>
+  <li><strong>Username, optional display name, bio and profile photo</strong>, which other users see. If you haven't set a username or name, other users see a placeholder like "angler1234".</li>
+  <li><strong>Sign-in records</strong> kept by our authentication provider (Supabase): the time of each sign-in and, for each active session, the IP address and device type, to keep you signed in and protect your account.
+  <!-- Evidence: auth.sessions columns ip, user_agent. --></li>
+  <li><strong>Age confirmation</strong>: to create an account you confirm you're at least 13. We don't ask for or store your date of birth, and we don't store the checkbox.
+  <!-- Evidence: mobile/src/screens/AuthScreen.tsx ageConfirmed (screen state only), commit 7e2fc2d. --></li>
 </ul>
 
-<h2>How we use it</h2>
-<p>We use this information to run your account, show relevant waters and conditions, power the community features, and manage your subscription. We do not sell your personal information, and the app does not include advertising trackers.</p>
-
-<h2>Services that process data for us</h2>
+<h3>Location (only if you allow it)</h3>
 <ul>
-  <li>Supabase (authentication and database)</li>
-  <li>RevenueCat (subscription management)</li>
-  <li>Apple and Google (sign-in)</li>
-  <li>Mapbox (maps)</li>
-  <li>Render (backend hosting)</li>
-  <li>National Weather Service, Open-Meteo, and USGS (weather and water data)</li>
+  <li><strong>Your current location</strong>, while you use the app, to find nearby waters, scores and stockings. Before it leaves your phone for these lookups it is rounded to about 0.7 mile, and it is not saved to your account. Our own server logs record only which page was requested, never your location or IP address. Our hosting provider (Render) keeps its own request logs for 14 days, and those can include your IP address.
+  <!-- Evidence: mobile/src/api/client.ts coarse() on /scores/top, /scores/adhoc/top, /search/waters, /streams/stocking/nearby (commit 43ad26a); backend/app/main.py disables uvicorn's access log and logs method + path + status only (commit b15b3c2, scripts/test_request_log.py). Render Pro provider request logs: 14 days, can include IPs (owner-confirmed 2026-10-11). --></li>
+  <li><strong>Catch location (optional, off by default)</strong>: if you turn it on for a catch, its exact spot is saved with that catch. Only you can see it, and it's never included when you share a catch to the feed. You can remove it by editing the catch.
+  <!-- Evidence: backend/app/routers/catches.py lines 11-16, 212-213. --></li>
+  <li><strong>Stocking alert area (Premium, optional)</strong>: the center and radius you pick on the map, rounded to about 0.7 mile before it's saved. Turning the alert off deletes it.
+  <!-- Evidence: backend/app/routers/area_alerts.py SPOT_DECIMALS=2; DELETE /users/me/stocking-area. --></li>
+  <li><strong>Map telemetry (Mapbox)</strong>: while the map is open, Mapbox's software may collect anonymized location data. You can opt out with the map's (i) button - see "Maps" in section 3.
+  <!-- Evidence: owner-chosen disclosure 2026-10-11 (conservative). Mapbox manifests (MapboxMaps 11.23.1, MapboxCommon 24.23.1) declare Precise + Coarse Location, User ID (random billing/session ID), Product Interaction, Other Usage Data, Performance Data, Other Diagnostic Data - not linked, no tracking, App Functionality + Analytics. Mapbox Product Privacy Policy (Jan 2025): IP deleted after 30 days; session ID association broken within 24 hours; no IDFA/AAID. NOTE: mobile/App.tsx currently calls Mapbox.setTelemetryEnabled(false) at every launch, so in practice telemetry is off and an opt-in from the (i) sheet is reset at the next launch - this text discloses more than the current build sends. --></li>
+  <li><strong>Saved pins</strong> you drop on the map are private to you until you delete them.
+  <!-- Evidence: saved_spots, all 'private'; DELETE in routers/users.py. --></li>
 </ul>
 
-<h2>Your choices and deleting your account</h2>
-<p>You can delete your account from within the app. Deleting your account removes your personal data. Posts, comments, and chat messages you wrote are kept so other users' conversations stay intact, but they are anonymized and shown as "Deleted user." You can also email <a href="mailto:support@troutscout.app">support@troutscout.app</a> with any privacy request.</p>
+<h3>What you create</h3>
+<ul>
+  <li><strong>Posts, comments, chat messages and photos</strong> you share in the community.</li>
+  <li><strong>Angler reports</strong>: water clarity, crowding, water level, fish activity and an optional note for a stream. Shown to other users for 48 hours and deleted after 30 days.
+  <!-- Evidence: routers/stream_reports.py REPORT_WINDOW_H=48; water_level/activity columns (commit 88f8e81); services/nightly_purge.py STREAM_REPORT_DAYS=30. --></li>
+  <li><strong>Your catch log</strong> (species, size, fly, notes, photos, the conditions at the time, and an optional location). Private to you unless you choose "Post to feed", which shares species, fly, size, notes and your first photo, but not the location or stream name.
+  <!-- Evidence: CatchFormSheet.tsx postToFeed confirmation text. --></li>
+  <li><strong>Saved streams, follows, state follows, likes, blocks and reports</strong>, so those features work.</li>
+  <li><strong>Feedback</strong> you send from the app (subject, message, app version and platform).
+  <!-- Evidence: feedback table; routers/feedback.py. --></li>
+</ul>
+<p>Photos are re-saved as new JPEG images before upload, which removes embedded photo metadata such as GPS tags.
+<!-- Evidence: mobile/src/utils/resizeImage.ts prepareImageForUpload re-encodes via expo-image-manipulator; owner verified on device 2026-10-11 for post photos and avatars; scripts/check_photo_gps.py on the 3 test uploads (post-photos, avatars, catch-photos): no location in any. --></p>
 
-<h2>Children</h2>
-<p>TroutScout is not directed to children under 13, and we do not knowingly collect their personal information.</p>
+<h3>Notifications</h3>
+<p>If you turn on notifications we store your device's push token to deliver them. You only get the alerts you turn on: stocking alerts for a saved stream (one stream free, all with Premium), stocking alerts for your chosen area (Premium), and announcements for states you follow. We keep a record of what we sent so you get at most one alert a day.
+<!-- Evidence: push_tokens; send_stocking_alerts.py "at most ONE push per user per 20 hours"; push_log, stocking_alerts_sent, announcement_alerts_sent. --></p>
 
-<h2>Changes</h2>
-<p>We may update this policy. The date at the top shows when it was last changed.</p>
+<h3>Subscription</h3>
+<p>Whether you have Premium and when it renews. Apple handles payment; we never see your card details.
+<!-- Evidence: users.subscription_status; routers/revenuecat.py. --></p>
 
-<h2>Contact</h2>
-<p><a href="mailto:support@troutscout.app">support@troutscout.app</a></p>
+<h3>Map usage (collected by Mapbox)</h3>
+<p>Our maps are provided by Mapbox. Mapbox's software collects anonymized usage and location data, along with your device model, operating system, and an app installation identifier, to operate and improve its maps. You can opt out at any time by tapping the (i) button on the map and choosing 'Don't Participate.' Mapbox does not use advertising identifiers.</p>
+
+<h3>On your phone</h3>
+<p>The app keeps some information on your phone so it works quickly and offline: your sign-in session, your settings, map data, and copies of what you've recently viewed. It stays on your phone and is removed when you delete the app.
+<!-- Evidence: mobile/src/api/client.ts file caches (stream-geometry, lakes, public-lands, ...) and offline-api copies per account; AsyncStorage settings (tour, radius, paywall timing, cached Premium state); Supabase session in AsyncStorage. --></p>
+
+<h3>Crash reports</h3>
+<p>If the app crashes or hits an error, a report goes to Sentry: the error, app version, device model and OS version, and the last few network requests the app made, with IDs, emails and tokens removed. We don't attach your account, email or name, and screenshots, screen recording, usage sessions and performance tracing are all off. IP address storage is turned off in Sentry. Crash reports from the phone's system layer include a random identifier for the app installation (not connected to your account) and device details such as model and OS version. Crash reports are kept for 30 days.
+<!-- Evidence: mobile/src/sentry.ts (sendDefaultPii false; beforeSend removes user/request/extra/device name; breadcrumbs fetch/xhr only with scrubbed path; enableAutoSessionTracking false - commit f8ce132). Native (iOS) crash events bypass the JS filters and carry sentry-cocoa's installation ID + device context. Owner-confirmed 2026-10-11: Sentry Developer plan, 30-day retention, IP storage off. --></p>
+
+<h2>2. Who can see what</h2>
+<table>
+  <tr><th>Information</th><th>Who sees it</th></tr>
+  <tr><td>Username (or "angler" placeholder), display name, bio, profile photo, who you follow and who follows you. Other users can also find you by username or name in search.</td><td>Other signed-in users</td></tr>
+  <!-- Evidence: GET /users/{id}/followers and /following (routers/follows.py) and /users/search (routers/users.py), all sign-in only. -->
+  <tr><td>Posts, comments, chat messages in chats you're in, angler reports</td><td>Other signed-in users (chat: members of that chat)</td></tr>
+  <tr><td>Profile photos and photos in posts, comments and chats</td><td>Stored at a web address that anyone who has the link can open</td></tr>
+  <!-- Evidence: storage.buckets avatars and post-photos public=true (owner decision 2026-10-11: keep, disclose). -->
+  <tr><td>Catch log, catch photos, catch locations, saved streams and pins, alert settings, your email</td><td>Only you</td></tr>
+  <tr><td>Reports you file</td><td>Our moderators, never the person you reported</td></tr>
+</table>
+<p><strong>Moderators.</strong> A small number of TroutScout admin accounts can see reported content, hide it, and suspend accounts. When someone reports content, the report (reason, the content and the usernames involved) is emailed to our support inbox. Moderator actions are logged.
+<!-- Evidence: users.is_admin; routers/admin.py; report email in routers/posts.py; reports.admin_user_id/acted_at/acted_by. --></p>
+
+<h2>3. Services we use</h2>
+<table>
+  <tr><th>Service</th><th>What it receives</th></tr>
+  <tr><td>Supabase (sign-in, database, file storage, live chat updates)</td><td>Your account and everything you store in the app. Live chat updates carry no message content.</td></tr>
+  <!-- Evidence: mobile/src/api/livePing.ts payload {}. -->
+  <tr><td>Render (hosts our server)</td><td>Requests from the app, including your IP address as part of the connection. Render keeps its request logs for 14 days.</td></tr>
+  <tr><td>Apple (Sign in with Apple, App Store, push delivery)</td><td>Sign-in, purchases, and notifications to your device.</td></tr>
+  <tr><td>Google (Sign in with Google)</td><td>Your sign-in, if you choose Google.</td></tr>
+  <tr><td>RevenueCat (subscriptions)</td><td>Your app account ID and App Store purchase records, plus basic device details its software sends (such as operating system and app version).</td></tr>
+  <!-- Evidence: PremiumContext.tsx Purchases.configure({ appUserID }) / logIn only - no setAttributes/setEmail/collectDeviceIdentifiers; device details are sent by the RevenueCat SDK itself. -->
+  <tr><td>Expo (push notifications)</td><td>Your push token and the alert's text.</td></tr>
+  <tr><td>Mapbox (maps)</td><td>Map requests for the area you're viewing (with your IP address), plus anonymized usage and location data, device model, operating system and an app installation identifier, unless you opt out with the map's (i) button.</td></tr>
+  <!-- Evidence: App.tsx Mapbox.setTelemetryEnabled(false) (commit 6a5d5d2) writes UserDefaults MGLMapboxMetricsEnabled=false, the key mapbox-maps-ios v11.23.1 EventsManager reads and observes (verified 2026-10-11). -->
+  <tr><td>Sentry (crash reports)</td><td>The crash details described above, kept 30 days.</td></tr>
+  <tr><td>Resend (email delivery)</td><td>Account emails, and emails to our support inbox about feedback and reports.</td></tr>
+  <!-- Evidence: services/moderation.py send_email; auth emails via Supabase SMTP (Resend) [OWNER: confirm]. -->
+  <tr><td>National Weather Service, Open-Meteo, USGS</td><td>Only the coordinates of waters we score, from our server. Never your identity.</td></tr>
+</table>
+<p><strong>Maps.</strong> Our maps are provided by Mapbox. Mapbox's software collects anonymized usage and location data, along with your device model, operating system, and an app installation identifier, to operate and improve its maps. You can opt out at any time by tapping the (i) button on the map and choosing 'Don't Participate.' Mapbox does not use advertising identifiers. See Mapbox's privacy policy at <a href="https://www.mapbox.com/legal/privacy">mapbox.com/legal/privacy</a>. [ATTORNEY: confirm]
+<!-- Evidence: owner-chosen disclosure 2026-10-11 (conservative). Mapbox manifests (MapboxMaps 11.23.1, MapboxCommon 24.23.1) declare Precise + Coarse Location, User ID (random billing/session ID), Product Interaction, Other Usage Data, Performance Data, Other Diagnostic Data - not linked, no tracking, App Functionality + Analytics. Mapbox Product Privacy Policy (Jan 2025): IP deleted after 30 days; session ID association broken within 24 hours; no IDFA/AAID. NOTE: mobile/App.tsx currently calls Mapbox.setTelemetryEnabled(false) at every launch, so in practice telemetry is off and an opt-in from the (i) sheet is reset at the next launch - this text discloses more than the current build sends. --></p>
+
+<p><strong>Links to other sites.</strong> Fly shop websites, state agency pages, Instagram and other links open sites we don't run; their own privacy policies apply.</p>
+
+<p>We don't use any AI or language-model service to process your information.
+<!-- Evidence: no model/AI calls in backend/app or mobile/src. Announcements: "troutscout announce/TroutAnnouncements.py" (owner's machine) sends OpenAI only state names/codes + fixed instructions (web search for public fishing news); no user data (verified 2026-10-11). --></p>
+
+<h2>4. Emails we send</h2>
+<ul>
+  <li>Account emails, such as sign-up codes and password resets.</li>
+  <li>Replies when you send us feedback (your account email is attached to your feedback so we can reply).</li>
+</ul>
+<p>We don't send marketing email. We don't currently email you about moderation decisions; if your account is suspended, the app tells you.
+<!-- Evidence: send_email callers: feedback and report emails, both to support@; suspension = 403 account_suspended. --></p>
+
+<h2>5. Reports, blocks and moderation</h2>
+<p>You can report posts, comments, chat messages, angler reports and users, and block anyone. You stop seeing reported content right away, and content reported by several people is hidden from everyone until we review it. We aim to review reports within 24 hours.
+<!-- Evidence: AUTO_HIDE_REPORT_COUNT = 3; in-app text changed to "We aim to review reports within 24 hours." (commit c4e3239). --></p>
+
+<h2>6. How long we keep it</h2>
+<ul>
+  <li><strong>Your account and content</strong>: until you delete them or your account.</li>
+  <li><strong>Things you delete</strong> (posts, comments, chat messages): their text and photos are erased right away. If someone has reported the item, we keep it until we've reviewed the report, then erase it; a nightly check erases anything left over within 7 days. An empty placeholder stays so replies still make sense.
+  <!-- Evidence: services/content_erasure.py (erase on delete; open-report exception; erased on resolve in admin.py/moderate.py); services/nightly_purge.py ERASE_AFTER_DAYS=7; test_content_erasure.py 18/18; one-time scrub of 210 older posts (scripts/scrub_deleted_content.py). --></li>
+  <li><strong>Angler reports</strong>: deleted 30 days after they're posted.</li>
+  <li><strong>Feedback</strong>: kept up to 12 months, and deleted when you delete your account.
+  <!-- Evidence: nightly_purge.py FEEDBACK_DAYS=365; routers/users.py DELETE FROM feedback on account deletion. --></li>
+  <li><strong>Feedback and report emails in our support inbox</strong>: deleted by hand once they're more than 12 months old. We review the inbox every three months, so a copy can remain for up to about 15 months.
+  <!-- Evidence: owner process decision 2026-10-11 (manual, quarterly review); not automated - the nightly purge covers the database only. --></li>
+  <li><strong>Reports and moderation records</strong>: kept 12 months after they're filed; open reports are kept until reviewed. [ATTORNEY: confirm retention statement]
+  <!-- Evidence: nightly_purge.py REPORT_DAYS=365, status <> 'open'. --></li>
+  <li><strong>Push delivery receipts</strong>: 7 days. Push tokens: until the device stops accepting notifications or you delete your account.
+  <!-- Evidence: services/push.py:116; DeviceNotRegistered cleanup. --></li>
+  <li><strong>Alert history</strong> (which alerts we sent you): kept while your account exists, deleted with it.</li>
+  <li><strong>Crash reports</strong> (Sentry): 30 days.</li>
+  <li><strong>Map telemetry</strong> (Mapbox): kept under Mapbox's own policy; Mapbox says it deletes IP addresses within 30 days and breaks the link to session identifiers within 24 hours. [ATTORNEY: confirm]</li>
+  <li><strong>Hosting request logs</strong> (Render): 14 days; they can include IP addresses. Our own server logs contain no IP addresses or locations.</li>
+  <li><strong>Database backups</strong> (Supabase): a daily backup is kept for 7 days, so something you delete can remain in a backup for up to 7 days. Photos and other uploaded files aren't part of these backups, so a deleted photo is gone right away. [ATTORNEY: confirm retention statement]
+  <!-- Evidence: owner-confirmed 2026-10-11: Supabase Pro daily backups 7 days, storage objects excluded. --></li>
+</ul>
+
+<h2>7. Deleting your account</h2>
+<p>Delete your account in the app (Profile &rarr; Settings). This removes your account, profile, profile photo, catch log and catch photos, saved streams and pins, alert settings and areas, follows, blocks, likes, notifications, push tokens, alert history, angler reports, reports you filed, feedback, and all the photos you uploaded. If you use Sign in with Apple we revoke the app's access, and we delete your record at RevenueCat. Deleting your account does <strong>not</strong> cancel an App Store subscription; cancel it in your Apple account settings.
+<!-- Evidence: routers/users.py delete_my_account (commit 42aaf99); FK cascade list; storage folders catch-photos, avatars, post-photos deleted; account_deletion.py; scripts/test_account_deletion.py 13/13. --></p>
+<p>So other people's conversations still make sense, the text of posts, comments and chat messages you wrote stays, shown as "Deleted user", with their photos removed. Delete any you don't want kept before deleting your account. If one of them is under review because someone reported it, it's kept, with its photo, until the review is done. Reports that other people filed about your content stay with our moderation records for 12 months.
+<!-- Evidence: reports.reporter_user_id cascades only for reports the user filed; reports about their content (target_id) remain; nightly_purge REPORT_DAYS=365 for resolved reports. -->
+<!-- Evidence: posts/comments/group_messages author FK SET NULL; photo_url cleared on deletion except items with an open report (kept photo excluded from the post-photos folder delete). --></p>
+
+<h2>8. Security</h2>
+<p>All data travels over encrypted connections. Your data is stored with our providers and is readable only by our server; the app can't read other users' private data directly. No system is perfectly secure, so please use a strong password. [ATTORNEY: confirm]
+<!-- Evidence: HTTPS; RLS on with no policies on every public table; storage own-folder policies. --></p>
+
+<h2>9. Children</h2>
+<p>TroutScout is for people 13 and older. When you create an account you confirm you're at least 13; we don't collect your date of birth. We don't knowingly collect personal information from children under 13; if you believe a child under 13 has given us information, email us and we'll delete it. [ATTORNEY: confirm COPPA and state teen-privacy wording]
+<!-- Evidence: AuthScreen.tsx required age checkbox (commit 7e2fc2d). --></p>
+
+<h2>10. Your rights and choices</h2>
+<ul>
+  <li>See and edit your profile, catches and posts in the app; delete them or your whole account at any time.</li>
+  <li>Turn location, camera, photo and notification access on or off in your device settings.</li>
+  <li>Ask for a copy of your data or make any other privacy request at <a href="mailto:support@troutscout.app">support@troutscout.app</a>. We'll respond within [ATTORNEY: confirm period, e.g. 45 days].</li>
+</ul>
+
+<h3>U.S. state privacy rights (including California)</h3>
+<p>Depending on where you live, you may have the right to know what personal information we collect, to get a copy, to correct it, to delete it, and to opt out of its sale, sharing for targeted advertising, or profiling. We don't sell personal information or share it for targeted advertising, and we don't use it for profiling with legal effects. [ATTORNEY: confirm whether TroutScout meets any state-law thresholds and the exact "sale"/"share" definitions] We won't treat you differently for using these rights. Send requests to <a href="mailto:support@troutscout.app">support@troutscout.app</a>; we may need to verify your identity, and you may use an authorized agent. If we deny a request, you may appeal by replying to our answer. [ATTORNEY: confirm rights list, verification, agent and appeal language]</p>
+<p>Categories collected in the last 12 months: identifiers (email, account ID, push token); customer records (account details); commercial information (subscription status); internet activity (crash diagnostics, and map usage telemetry collected by Mapbox); geolocation (precise for optional catch locations; approximate for stocking areas); audio/visual (photos you upload); and the content you post. Sources: you and your device. Purposes: providing the app and its features, safety and moderation, and fixing bugs. [ATTORNEY: confirm category mapping]</p>
+
+<h3>Where TroutScout is available</h3>
+<p>TroutScout is offered in the United States only, and our providers store data in the United States. [ATTORNEY: confirm U.S.-only wording]
+<!-- Evidence: owner-confirmed 2026-10-11: distribution United States only. --></p>
+
+<h2>11. Changes</h2>
+<p>We'll update this page when our practices change and change the date at the top. If a change is significant, we'll also tell you in the app. [ATTORNEY: confirm]</p>
+
+<h2>12. Contact</h2>
+<p>[OPERATOR NAME: confirm] &middot; <a href="mailto:support@troutscout.app">support@troutscout.app</a></p>
+
+<p class="meta"><a href="/">Home</a> &middot; <a href="/terms/">Terms of Use</a></p>
 
 </body>
 </html>
