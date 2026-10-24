@@ -71,6 +71,7 @@ nav a:hover{color:var(--white)}
 .hero-art{position:relative;justify-self:center;max-width:420px;width:100%}
 .hero-art .shot{border-radius:28px;filter:drop-shadow(0 30px 60px rgba(0,0,0,.6))}
 .float{position:absolute;background:rgba(28,28,30,.92);border:1px solid var(--line);border-radius:18px;padding:12px 14px;display:flex;align-items:center;gap:12px;box-shadow:0 16px 40px rgba(0,0,0,.5);backdrop-filter:blur(10px);opacity:0;transform:translateY(14px)}
+.float{zoom:var(--hs,1)}
 .float.in{animation:pop .6s cubic-bezier(.2,.9,.3,1.2) forwards}
 .float-score{left:-34px;top:20%}
 .float-stock{right:-26px;bottom:24%}
@@ -200,12 +201,12 @@ footer{border-top:1px solid var(--line);padding:38px 0 50px;color:var(--gray);fo
 .orange{fill:none;stroke:#E8963A;stroke-width:6;stroke-linecap:round;stroke-dasharray:420;stroke-dashoffset:420}
 .banner{position:absolute;top:10px;left:10px;display:flex;align-items:center;gap:6px;background:rgba(0,0,0,.65);padding:5px 10px;border-radius:10px;font-size:11px;font-weight:800}
 .banner img{width:34px;height:14px;object-fit:contain}
-.in .stage-stock .finder{animation:finder 6s infinite}
-.in .stage-stock .brook{animation:brook 6s infinite}
-.in .stage-stock .check{animation:check 6s infinite}
-.in .stage-stock .searchmap{animation:press 6s infinite}
-.in .stage-stock .minimap{animation:mapin 6s infinite}
-.in .stage-stock .orange{animation:draw 6s infinite}
+.on .stage-stock .finder{animation:finder 6s infinite}
+.on .stage-stock .brook{animation:brook 6s infinite}
+.on .stage-stock .check{animation:check 6s infinite}
+.on .stage-stock .searchmap{animation:press 6s infinite}
+.on .stage-stock .minimap{animation:mapin 6s infinite}
+.on .stage-stock .orange{animation:draw 6s infinite}
 @keyframes finder{0%,42%{opacity:1}48%,92%{opacity:0}100%{opacity:1}}
 @keyframes brook{0%,10%{border-color:transparent;transform:none}15%{transform:scale(1.08)}20%,100%{border-color:var(--gold);transform:none}}
 @keyframes check{0%,12%{opacity:0;transform:scale(.4)}18%,100%{opacity:1;transform:none}}
@@ -230,8 +231,8 @@ footer{border-top:1px solid var(--line);padding:38px 0 50px;color:var(--gray);fo
 .t3 em{font-style:normal;font-weight:900;font-size:22px;color:var(--good)}
 .rk{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.12);font-weight:900;font-size:13px;color:var(--white);flex:none}
 .rk.gold{background:var(--gold);color:#000}
-.in .t3{animation:slidein .55s cubic-bezier(.2,.9,.3,1.2) forwards}
-.in .t3:nth-child(2){animation-delay:.14s}.in .t3:nth-child(3){animation-delay:.28s}
+.on .t3{animation:slidein .55s cubic-bezier(.2,.9,.3,1.2) forwards}
+.on .t3:nth-child(2){animation-delay:.14s}.on .t3:nth-child(3){animation-delay:.28s}
 
 /* 4 scanner: the circle roams, scans, pins pop (6 s loop) */
 .stage-scan{height:230px;padding:0;background:#141a17}
@@ -246,11 +247,11 @@ footer{border-top:1px solid var(--line);padding:38px 0 50px;color:var(--gray);fo
 .pin b{transform:rotate(45deg)}
 .p1{left:34%;top:38%}.p2{left:60%;top:48%}.p3{left:46%;top:66%}
 .scanbtn{position:absolute;left:50%;bottom:12px;transform:translateX(-50%);background:var(--gold);color:#000;font-weight:900;font-size:12px;padding:8px 14px;border-radius:12px;white-space:nowrap}
-.in .scircle{animation:roam 6s infinite ease-in-out}
-.in .scircle .sweep{animation:sweep 6s infinite linear}
-.in .pin{animation:pinpop 6s infinite}
-.in .p2{animation-delay:.15s}.in .p3{animation-delay:.3s}
-.in .scanbtn{animation:press2 6s infinite}
+.on .scircle{animation:roam 6s infinite ease-in-out}
+.on .scircle .sweep{animation:sweep 6s infinite linear}
+.on .pin{animation:pinpop 6s infinite}
+.on .p2{animation-delay:.15s}.on .p3{animation-delay:.3s}
+.on .scanbtn{animation:press2 6s infinite}
 @keyframes roam{0%{transform:translate(-70px,-40px)}13%{transform:translate(60px,-20px)}25%{transform:translate(20px,30px)}35%,100%{transform:translate(0,0)}}
 @keyframes sweep{0%,38%{opacity:0;transform:rotate(0)}40%{opacity:.9}56%{opacity:.9;transform:rotate(720deg)}58%,100%{opacity:0;transform:rotate(720deg)}}
 @keyframes pinpop{0%,58%{transform:rotate(-45deg) scale(0)}64%{transform:rotate(-45deg) scale(1.2)}68%,90%{transform:rotate(-45deg) scale(1)}95%,100%{transform:rotate(-45deg) scale(0)}}
@@ -259,7 +260,7 @@ footer{border-top:1px solid var(--line);padding:38px 0 50px;color:var(--gray);fo
 /* 5 layers: the list scrolls by */
 .stage-layers{height:230px}
 .lscroll{display:grid;gap:8px}
-.in .lscroll{animation:lscroll 9s ease-in-out infinite alternate}
+.on .lscroll{animation:lscroll 9s ease-in-out infinite alternate}
 @keyframes lscroll{0%,12%{transform:translateY(0)}88%,100%{transform:translateY(-160px)}}
 .lrow{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.05);border-radius:12px;padding:9px 10px}
 .lrow i{width:26px;height:6px;border-radius:3px;flex:none}
@@ -281,17 +282,16 @@ footer{border-top:1px solid var(--line);padding:38px 0 50px;color:var(--gray);fo
 .typing span i:nth-child(2){animation-delay:.2s}.typing span i:nth-child(3){animation-delay:.4s}
 .reply{align-items:flex-start}
 .reply b{font-size:12px;color:var(--white)}.stage .reply p{margin:2px 0 0;max-width:none;font-size:12.5px;color:var(--text)}
-.in .post{animation:pop .6s ease forwards}
-.in .typing{animation:chattyping 7s ease infinite}
-.in .reply{animation:chatreply 7s ease infinite}
+.on .post{animation:pop .6s ease forwards}
+.on .typing{animation:chattyping 7s ease infinite}
+.on .reply{animation:chatreply 7s ease infinite}
 @keyframes chattyping{0%,8%{opacity:0}14%,40%{opacity:1}46%,100%{opacity:0}}
 @keyframes chatreply{0%,44%{opacity:0;transform:translateY(10px)}52%,90%{opacity:1;transform:none}97%,100%{opacity:0;transform:none}}
 @keyframes blink{0%,100%{opacity:.3}50%{opacity:1}}
 @media (prefers-reduced-motion:reduce){.t3,.post{opacity:1!important;transform:none!important}.reply{opacity:1!important}.typing{display:none!important}.orange{stroke-dashoffset:0!important}}
 
 /* Spring Creek card covers the hero image's Valley/Stony/Beaver Creek list */
-.float-stock{left:54%!important;right:auto!important;top:48%!important;bottom:auto!important;width:46%;min-height:12.5%;padding:10px 12px}
-@media (max-width:860px){.float-stock small{font-size:8.5px}.float-stock b{font-size:13px}.float-stock .chip{font-size:10.5px;padding:3px 8px}}
+.float-stock{left:54%!important;right:auto!important;top:48%!important;bottom:auto!important;width:193px;min-height:93px;padding:10px 12px}
 /* trout layers detail */
 .lgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px;margin-top:40px}
 .lcard{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:22px}
@@ -310,7 +310,6 @@ footer{border-top:1px solid var(--line);padding:38px 0 50px;color:var(--gray);fo
 .shot,.hero-art .shot,.feature-art img.shot{mix-blend-mode:lighten;filter:none!important}
 @media (min-width:980px){.lgrid .compare{grid-column:span 2;margin-top:0}}
 .float-stock .chip{white-space:nowrap}
-@media (max-width:860px){.float-stock{width:50%;left:51%!important}.float-stock .chip{font-size:10px;padding:3px 7px}}
 @media (max-width:640px){.compare{padding:18px}.compare table,.compare tbody{display:block}.compare tr{display:grid;grid-template-columns:1fr 1fr;column-gap:14px;border-top:1px solid var(--line);padding:10px 0}.compare tr:first-child{border-top:0;padding-top:0}.compare tr:first-child th{display:none}.compare th{grid-column:1/-1;width:auto;padding:0 0 6px;border:0}.compare td{padding:0;border:0;font-size:13.5px}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal,.float,.bubble,.demo-stock .row{opacity:1!important;transform:none!important}.intro{display:none}}
 </style>
@@ -636,7 +635,7 @@ const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const intro = document.getElementById("intro");
   let seen = false;
   try { seen = sessionStorage.getItem("ts-intro") === "1"; } catch (e) {}
-  if (reduce || seen) { intro.remove(); startHero(); return; }
+  if (reduce || seen) { intro.remove(); setTimeout(startHero); return; }
   document.body.style.overflow = "hidden";
   const done = () => {
     if (!intro.isConnected) return;
@@ -663,17 +662,38 @@ function countRing(el, to, ms) {
   requestAnimationFrame(tick);
 }
 
-function startHero() {
+// Hero cards keep the same size relative to the phone image on every screen (420px = desktop).
+const heroArt = document.querySelector(".hero-art");
+const sizeHero = () => heroArt.style.setProperty("--hs", (heroArt.clientWidth / 420).toFixed(3));
+sizeHero(); addEventListener("resize", sizeHero);
+
+let heroReady = false, heroSeen = false, heroDone = false;
+function playHero() {
+  if (heroDone || !heroReady || !heroSeen) return;
+  heroDone = true;
   setTimeout(() => { document.getElementById("floatScore").classList.add("in"); countRing(document.getElementById("heroRing"), 86, 1200); }, 250);
   setTimeout(() => document.getElementById("floatStock").classList.add("in"), 800);
 }
+function startHero() { heroReady = true; playHero(); }
 
-// Reveal sections and play each demo as it scrolls into view.
+// Reveal sections as they scroll in.
 const io = new IntersectionObserver((entries) => {
   entries.forEach((en) => {
     if (!en.isIntersecting) return;
+    en.target.classList.add("in");
+    io.unobserve(en.target);
+  });
+}, { threshold: 0.18 });
+document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
+
+// Each demo (and the hero cards) only starts once it is actually on screen.
+const play = new IntersectionObserver((entries) => {
+  entries.forEach((en) => {
+    if (!en.isIntersecting) return;
     const el = en.target;
-    el.classList.add("in");
+    play.unobserve(el);
+    if (el === heroArt) { heroSeen = true; playHero(); return; }
+    el.classList.add("on");
     el.querySelectorAll(".t3 em[data-to]").forEach((em, i) => {
       const to = +em.dataset.to, t0 = performance.now() + 450 + i * 140;
       const tick = (t) => { const k = Math.max(0, Math.min(1, (t - t0) / 900)); em.textContent = Math.round(to * (1 - Math.pow(1 - k, 3))); if (k < 1) requestAnimationFrame(tick); };
@@ -683,10 +703,10 @@ const io = new IntersectionObserver((entries) => {
       countRing(el.querySelector("#bigRing"), 78, 1400);
       el.querySelectorAll("#factors i").forEach((b, i) => setTimeout(() => (b.style.width = b.dataset.w + "%"), 200 + i * 120));
     }
-    io.unobserve(el);
   });
-}, { threshold: 0.18 });
-document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
+}, { threshold: 0.4 });
+document.querySelectorAll(".stage").forEach((el) => play.observe(el));
+play.observe(heroArt);
 </script>
 </body>
 </html>
