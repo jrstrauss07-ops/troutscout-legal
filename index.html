@@ -369,7 +369,7 @@ footer{border-top:1px solid var(--line);padding:38px 0 50px;color:var(--gray);fo
 .notif span{font-size:calc(var(--cw,4px)*1.58);color:#d8d8dc;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .stock-live.st-ping .notif{animation:notifPing 2.4s ease both}
 @keyframes notifPing{0%{border-color:rgba(252,193,3,0)}8%{border-color:rgba(252,193,3,1);transform:translateX(-1.2%)}14%{transform:translateX(1.2%)}20%{transform:translateX(-.8%)}26%{transform:none}40%{border-color:rgba(252,193,3,.35)}55%{border-color:rgba(252,193,3,1)}100%{border-color:rgba(252,193,3,.55)}}
-.rs{position:absolute;overflow:hidden;box-sizing:border-box;padding:calc(var(--cw,4px)*1.1) calc(var(--cw,4px)*1.6);background:linear-gradient(180deg,rgba(20,20,22,.9),rgba(12,12,14,.97));border-top:1px solid rgba(255,255,255,.08);box-shadow:0 -1.2em 2em rgba(0,0,0,.45)}
+.rs{position:absolute;overflow:hidden;box-sizing:border-box;padding:calc(var(--cw,4px)*1.1) calc(var(--cw,4px)*1.6)}
 .rs-head{display:inline-flex;align-items:center;gap:calc(var(--cw,4px)*1);font-size:calc(var(--cw,4px)*2.4);font-weight:900;letter-spacing:.03em;color:#fff;background:rgba(18,18,20,.92);padding:calc(var(--cw,4px)*.6) calc(var(--cw,4px)*1.4);border-radius:calc(var(--cw,4px)*1.4);margin-bottom:calc(var(--cw,4px)*.6);}
 .rs-cards{display:flex;gap:calc(var(--cw,4px)*1.4)}
 .rs-card{flex:none;width:calc(var(--cw,4px)*20);box-sizing:border-box;padding:calc(var(--cw,4px)*.8) calc(var(--cw,4px)*1.2) calc(var(--cw,4px)*1);border-radius:calc(var(--cw,4px)*2);background:rgba(22,22,24,.96);border:1px solid rgba(255,255,255,.1);box-shadow:0 calc(var(--cw,4px)*1) calc(var(--cw,4px)*2.4) rgba(0,0,0,.55);display:flex;flex-direction:column;align-items:flex-start;opacity:0;transform:translateX(130%);transition:opacity .35s ease,transform .6s cubic-bezier(.2,.9,.3,1.1)}
@@ -833,6 +833,32 @@ the Little J today?</span></div>
   </div>
 </section>
 
+<!-- 5. Trout layers (slide 5) -->
+<section id="layers">
+  <div class="wrap reveal">
+    <div class="center"><p class="eyebrow">Map guide</p><h2>Every trout layer, explained.</h2>
+    <p class="lead">Turn on any layer in the map's Layers menu. Here's what each one means, with a real example.</p></div>
+    <div class="lgrid">
+      <div class="lcard"><i style="background:#E8963A"></i><h3>Stocked Waters</h3><p>Streams and lakes the state stocks with hatchery-raised trout, from the state stocking reports. Tap a stream to see when it was last stocked and with which species.</p><div class="ex"><b>Example</b> A local creek that gets rainbow and brown trout every spring before opening day.</div></div>
+      <div class="lcard"><i style="background:#FCC103"></i><h3>Stocking Sections</h3><p>The exact stretch of a stream where the state releases trout, traced from the stocking list&#x27;s upper and lower limits - not the whole stream. Pennsylvania only.</p><div class="ex"><b>Example</b> A creek listed as stocked &quot;from the Route 45 bridge downstream to the mouth&quot; is drawn only along that stretch.</div></div>
+      <div class="lcard"><i style="background:#1FC9A6"></i><h3>Wild Trout Waters</h3><p>Streams where trout reproduce naturally - the fish were born in the stream, not raised in a hatchery. The species can be native or one introduced long ago.</p><div class="ex"><b>Example</b> A mountain creek full of wild brown trout (originally from Europe) is a wild trout water even though browns are not native.</div></div>
+      <div class="lcard"><i style="background:#A77CF0"></i><h3>Premier Wild Trout Waters</h3><p>The best wild trout water in each state - the state&#x27;s own top classification, based on how many wild trout the stream holds. Each stream keeps the state&#x27;s name for its class.</p><div class="ex"><b>Example</b> Pennsylvania&#x27;s Class A Wild Trout Streams or Wisconsin&#x27;s Class I Trout Waters.</div></div>
+      <div class="lcard"><i style="background:#F0508C"></i><h3>Designated Trout Waters</h3><p>Waters a state officially lists as trout water, often with special rules (catch and release, fly fishing only, delayed harvest). Includes wild, stocked and trophy waters.</p><div class="ex"><b>Example</b> Colorado&#x27;s Gold Medal Waters, Montana&#x27;s Blue Ribbon streams, or a state&#x27;s official trout stream list.</div></div>
+      <div class="lcard"><i style="background:#7FD17A"></i><h3>Native Trout Regions</h3><p>Shaded areas on the map where a trout species that has always lived in that region still survives - fish that were there long before any stocking. These are often remote headwaters inside state forests, wilderness areas and national forests.</p><div class="ex"><b>Example</b> Brook trout in Pennsylvania&#x27;s state forests or the Great Smoky Mountains; cutthroat trout in Colorado; Apache trout in Arizona.</div></div>
+      <div class="lcard"><i style="background:#5AB8FF"></i><h3>Stream Gauges</h3><p>Live USGS gauges on the map. Tap one for current flow and gauge height, with a chart of the last few days, so you know if the water is high, low or just right.</p><div class="ex"><b>Example</b> Flow jumps after a storm - check the gauge before you drive.</div></div>
+    <div class="compare">
+      <h3>Wild vs native trout</h3>
+      <table>
+        <tr><th></th><td><b style="color:#1FC9A6">Wild</b></td><td><b style="color:#7FD17A">Native</b></td></tr>
+        <tr><th>How fish get there</th><td>Born in the wild (stream-bred)</td><td>Born in the wild (stream-bred)</td></tr>
+        <tr><th>Where species came from</th><td>Can be native OR non-native (e.g., wild brown trout)</td><td>Must be historically indigenous to the region (e.g., native brook trout)</td></tr>
+        <tr><th>Management focus</th><td>Supporting natural reproduction and self-sustaining sport fisheries</td><td>Preserving original regional genetics and pristine habitats</td></tr>
+      </table>
+    </div>
+    </div>
+  </div>
+</section>
+
 <section id="premium">
   <div class="wrap reveal">
     <div class="center">
@@ -867,32 +893,6 @@ the Little J today?</span></div>
       <details><summary>Which states are covered?</summary><p>All 50 U.S. states have Fish Scores. Stocking, native trout and regulation coverage depends on what each state's wildlife agency publishes; Pennsylvania has the deepest data.</p></details>
       <details><summary>Will other anglers see my fishing spots?</summary><p>No. Your catch log is private. You choose what to share, and you can share a catch without its location.</p></details>
       <details><summary>Does it work on Android?</summary><p>TroutScout is on iPhone first. Follow <a href="https://www.instagram.com/troutscoutapp/" target="_blank" rel="noopener noreferrer" style="color:var(--gold)">@troutscoutapp</a> for news.</p></details>
-    </div>
-  </div>
-</section>
-
-<!-- 5. Trout layers (slide 5) -->
-<section id="layers">
-  <div class="wrap reveal">
-    <div class="center"><p class="eyebrow">Map guide</p><h2>Every trout layer, explained.</h2>
-    <p class="lead">Turn on any layer in the map's Layers menu. Here's what each one means, with a real example.</p></div>
-    <div class="lgrid">
-      <div class="lcard"><i style="background:#E8963A"></i><h3>Stocked Waters</h3><p>Streams and lakes the state stocks with hatchery-raised trout, from the state stocking reports. Tap a stream to see when it was last stocked and with which species.</p><div class="ex"><b>Example</b> A local creek that gets rainbow and brown trout every spring before opening day.</div></div>
-      <div class="lcard"><i style="background:#FCC103"></i><h3>Stocking Sections</h3><p>The exact stretch of a stream where the state releases trout, traced from the stocking list&#x27;s upper and lower limits - not the whole stream. Pennsylvania only.</p><div class="ex"><b>Example</b> A creek listed as stocked &quot;from the Route 45 bridge downstream to the mouth&quot; is drawn only along that stretch.</div></div>
-      <div class="lcard"><i style="background:#1FC9A6"></i><h3>Wild Trout Waters</h3><p>Streams where trout reproduce naturally - the fish were born in the stream, not raised in a hatchery. The species can be native or one introduced long ago.</p><div class="ex"><b>Example</b> A mountain creek full of wild brown trout (originally from Europe) is a wild trout water even though browns are not native.</div></div>
-      <div class="lcard"><i style="background:#A77CF0"></i><h3>Premier Wild Trout Waters</h3><p>The best wild trout water in each state - the state&#x27;s own top classification, based on how many wild trout the stream holds. Each stream keeps the state&#x27;s name for its class.</p><div class="ex"><b>Example</b> Pennsylvania&#x27;s Class A Wild Trout Streams or Wisconsin&#x27;s Class I Trout Waters.</div></div>
-      <div class="lcard"><i style="background:#F0508C"></i><h3>Designated Trout Waters</h3><p>Waters a state officially lists as trout water, often with special rules (catch and release, fly fishing only, delayed harvest). Includes wild, stocked and trophy waters.</p><div class="ex"><b>Example</b> Colorado&#x27;s Gold Medal Waters, Montana&#x27;s Blue Ribbon streams, or a state&#x27;s official trout stream list.</div></div>
-      <div class="lcard"><i style="background:#7FD17A"></i><h3>Native Trout Regions</h3><p>Shaded areas on the map where a trout species that has always lived in that region still survives - fish that were there long before any stocking. These are often remote headwaters inside state forests, wilderness areas and national forests.</p><div class="ex"><b>Example</b> Brook trout in Pennsylvania&#x27;s state forests or the Great Smoky Mountains; cutthroat trout in Colorado; Apache trout in Arizona.</div></div>
-      <div class="lcard"><i style="background:#5AB8FF"></i><h3>Stream Gauges</h3><p>Live USGS gauges on the map. Tap one for current flow and gauge height, with a chart of the last few days, so you know if the water is high, low or just right.</p><div class="ex"><b>Example</b> Flow jumps after a storm - check the gauge before you drive.</div></div>
-    <div class="compare">
-      <h3>Wild vs native trout</h3>
-      <table>
-        <tr><th></th><td><b style="color:#1FC9A6">Wild</b></td><td><b style="color:#7FD17A">Native</b></td></tr>
-        <tr><th>How fish get there</th><td>Born in the wild (stream-bred)</td><td>Born in the wild (stream-bred)</td></tr>
-        <tr><th>Where species came from</th><td>Can be native OR non-native (e.g., wild brown trout)</td><td>Must be historically indigenous to the region (e.g., native brook trout)</td></tr>
-        <tr><th>Management focus</th><td>Supporting natural reproduction and self-sustaining sport fisheries</td><td>Preserving original regional genetics and pristine habitats</td></tr>
-      </table>
-    </div>
     </div>
   </div>
 </section>
