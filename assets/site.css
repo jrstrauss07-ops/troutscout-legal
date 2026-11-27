@@ -1,0 +1,79 @@
+/* TroutScout public stream & lake pages (2026-11-27) - the app's dark theme: #0B0B0C ground,
+   #1C1C1E cards, gold #FCC103, Fish Score bands good #6CC24A / fair #E8B83E / poor #E06272. */
+:root{--bg:#0B0B0C;--card:#1C1C1E;--card2:#242426;--line:rgba(255,255,255,.08);--tx:#F5F5F0;--mut:rgba(245,245,240,.62);
+--gold:#FCC103;--good:#6CC24A;--fair:#E8B83E;--poor:#E06272;--water:#5AB8FF;--r:18px}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.5 -apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+a{color:var(--gold);text-decoration:none}a:hover{text-decoration:underline}
+main{max-width:860px;margin:0 auto;padding:8px 16px 32px}
+.top{position:sticky;top:0;z-index:5;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 16px;
+background:rgba(11,11,12,.86);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:8px;color:var(--tx);font-weight:800;font-size:18px;letter-spacing:-.3px}
+.brand img{border-radius:7px}.brand b{color:var(--gold)}.brand:hover{text-decoration:none}
+.crumbs{display:flex;gap:8px;font-size:13px;color:var(--mut);margin:10px 2px 4px}.crumbs a{color:var(--mut)}
+.hero{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px;margin:10px 0 14px}
+.hero h1{margin:0;font-size:34px;line-height:1.1;font-weight:900;letter-spacing:-.8px}
+.sub{margin:6px 0 0;color:var(--mut);font-size:15px}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.tag{font-size:12px;font-weight:800;padding:4px 10px;border-radius:999px;background:rgba(252,193,3,.12);color:var(--gold);border:1px solid rgba(252,193,3,.3)}
+.score{display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:10px 16px 10px 10px}
+.score b{display:block;font-size:14px}.score small{display:block;color:var(--mut);font-size:12px}
+.score .b{font-weight:800;font-size:15px}.b.good{color:var(--good)}.b.fair{color:var(--fair)}.b.poor{color:var(--poor)}
+.ring{position:relative;width:64px;height:64px}.ring svg{width:64px;height:64px;transform:rotate(-90deg)}
+.ring circle{fill:none;stroke-width:7}.ring .trk{stroke:rgba(255,255,255,.1)}.ring .val{stroke-linecap:round}
+.ring.good .val{stroke:var(--good)}.ring.fair .val{stroke:var(--fair)}.ring.poor .val{stroke:var(--poor)}
+.ring span{position:absolute;inset:0;display:grid;place-items:center;font-weight:900;font-size:20px}
+.ring.none{display:grid;place-items:center;border-radius:50%;border:7px solid rgba(255,255,255,.1)}.ring.none span{position:static;color:var(--mut)}
+.map{margin:0 0 14px;background:radial-gradient(120% 120% at 20% 0%,#17222B 0%,#0F1418 60%,#0C0F11 100%);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.outline{display:block;width:100%;height:auto}
+.outline .st{fill:none;stroke:var(--water);stroke-width:3.5;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 0 6px rgba(90,184,255,.45))}
+.outline{background-image:linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.045) 1px,transparent 1px);background-size:32px 32px}
+.outline .lk{fill:rgba(90,184,255,.28);stroke:var(--water);stroke-width:2.5;stroke-linejoin:round}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:16px 18px;margin:0 0 14px}
+.card h2,.cta h2,.county h2{margin:0 0 10px;font-size:18px;font-weight:900;letter-spacing:-.2px}
+.card h2 small{font-size:12px;font-weight:600;color:var(--mut);margin-left:6px}
+.muted{color:var(--mut);margin:6px 0 0;font-size:14px}
+.tease{margin:12px 0 0;padding:10px 12px;border-radius:12px;background:rgba(252,193,3,.08);border:1px dashed rgba(252,193,3,.35);font-size:14px;color:var(--tx)}
+ul{list-style:none;margin:0;padding:0}
+.stock li,.hatch li,.acc li,.near li{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--line)}
+.stock li:last-child,.hatch li:last-child,.acc li:last-child,.near li:last-child{border-bottom:0}
+.stock .d{min-width:118px;font-weight:700}.stock .sp{color:var(--mut)}
+.hatch .n{flex:1;font-weight:600}.hatch .m{color:var(--mut);font-size:14px}.hatch .sz{font-size:12px;color:var(--mut);background:var(--card2);padding:2px 8px;border-radius:999px}
+.hatch li.on .n{color:var(--gold)}.hatch li.on .n::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--gold);margin-right:8px;box-shadow:0 0 8px var(--gold)}
+.acc .n{flex:1}.acc .go{font-size:13px;font-weight:800}
+.ic{width:26px;height:26px;border-radius:8px;flex:none;background:var(--card2) center/18px no-repeat}
+.ic.park{background-image:url(/assets/poi_parking.png)}.ic.ramp{background-image:url(/assets/poi_boat_ramp.png)}.ic.camp{background-image:url(/assets/poi_campground.png)}
+.near li{justify-content:space-between}.near span{color:var(--mut);font-size:14px}
+.flowrow{display:flex;gap:28px}.flowrow b{font-size:30px;font-weight:900;color:var(--water);margin-right:6px}.flowrow span{color:var(--mut)}
+.cta{display:flex;flex-wrap:wrap;align-items:center;gap:16px;margin:0 0 14px;padding:18px;border-radius:var(--r);
+background:linear-gradient(135deg,rgba(252,193,3,.16),rgba(252,193,3,.03) 60%),var(--card);border:1px solid rgba(252,193,3,.35)}
+.cta img{border-radius:14px}.cta div{flex:1;min-width:200px}.cta p{margin:0;color:var(--mut);font-size:14px}
+.appbtn{display:inline-flex;align-items:center;gap:8px;background:#000;color:#fff;border:1px solid rgba(255,255,255,.35);border-radius:12px;padding:8px 14px 8px 12px;line-height:1.1;font-weight:700;font-size:17px}
+.appbtn i{width:22px;height:22px;flex:none;background:url(/assets/apple.svg) center/contain no-repeat}.appbtn small{display:block;font-size:10.5px;font-weight:500;opacity:.85}
+.appbtn:hover{text-decoration:none;border-color:var(--gold)}.appbtn.soon{opacity:.8;cursor:default}
+.appbtn.small{padding:6px 10px;font-size:14px;border-radius:10px}.appbtn.small i{width:18px;height:18px}.appbtn.small small{font-size:9px}
+.find{width:100%;margin:0 0 14px;padding:13px 16px;border-radius:14px;border:1px solid var(--line);background:var(--card);color:var(--tx);font-size:16px}
+.find:focus{outline:none;border-color:var(--gold)}
+.counties{columns:2 320px;column-gap:14px}.county{break-inside:avoid;background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:14px 16px;margin:0 0 14px}
+.county h2{font-size:15px;color:var(--mut);text-transform:uppercase;letter-spacing:.6px}
+.county li a{display:flex;align-items:center;gap:8px;padding:5px 0;color:var(--tx)}.county em{font-style:normal;font-size:11px;color:var(--gold);font-weight:800}
+.dot{width:10px;height:10px;border-radius:50%;flex:none;background:rgba(255,255,255,.25)}.dot.good{background:var(--good)}.dot.fair{background:var(--fair)}.dot.poor{background:var(--poor)}.dot.lake{background:var(--water)}
+.states{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px}
+.states a{display:block;padding:14px 16px;background:var(--card);border:1px solid var(--line);border-radius:14px;color:var(--tx);font-weight:700}
+.states a:hover{border-color:var(--gold);text-decoration:none}
+.foot{max-width:860px;margin:0 auto;padding:8px 16px 28px}
+.fine{font-size:12px;color:var(--mut);margin:0 0 6px}
+.credits{font-size:10px;line-height:1.4;color:rgba(245,245,240,.32);margin:0}.credits a{color:rgba(245,245,240,.4)}
+@media (max-width:560px){.hero h1{font-size:28px}.top .appbtn small{display:none}}
+
+/* v2: Ad-Hoc mini-map, A-Z lists, section titles */
+.outline .nb{fill:rgba(90,184,255,.55);stroke:rgba(255,255,255,.35);stroke-width:1}
+.outline .pin{fill:var(--gold);stroke:#000;stroke-width:2}.outline .pulse{fill:rgba(252,193,3,.18);stroke:rgba(252,193,3,.5)}
+.map figcaption{padding:8px 14px;font-size:12px;color:var(--mut);border-top:1px solid var(--line)}
+.az{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:0 0 14px}.az span{color:var(--mut);font-size:13px;margin-right:4px}
+.az a{min-width:30px;text-align:center;padding:5px 7px;border-radius:9px;background:var(--card);border:1px solid var(--line);color:var(--tx);font-weight:700;font-size:13px}
+.az a:hover{border-color:var(--gold);text-decoration:none}
+.cols{columns:3 200px;column-gap:18px}.cols li{break-inside:avoid;padding:4px 0}.cols a{color:var(--tx)}
+.sect{font-size:18px;font-weight:900;margin:18px 2px 10px}
+.dot.st{background:var(--water)}.dot.lake{background:#7DD3C0}
+.hatch.now li.muted{color:var(--mut)}
